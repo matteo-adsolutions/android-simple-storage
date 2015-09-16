@@ -133,6 +133,18 @@ public interface Storage {
 	 *            The content which will filled the file
 	 */
 	boolean createFile(String directoryName, String fileName, byte[] content);
+	
+	/**
+	 * Creating the file with given name and with content in byte array format.<br>
+	 * 
+	 * @param directoryName
+	 *            The directory name
+	 * @param absoluteFileName
+	 *            The absolute file name(path + simple name)
+	 * @param content
+	 *            The content which will filled the file
+	 */
+	boolean createFile(String absoluteFileName, byte[] content);
 
 	/**
 	 * Delete file
