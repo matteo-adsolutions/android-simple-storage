@@ -130,6 +130,28 @@ abstract class AbstractDiskStorage implements Storage {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean createFile(String absoluteFileName, byte[] content) {
+		String path = absoluteFileName;
+		try {
+			OutputStream stream = new FileOutputStream(new File(path));
+
+			/*
+			 * Check if needs to be encrypted. If yes, then encrypt it.
+			 */
+			if (getConfiguration().isEncrypted()) {
+				content = encrypt(content, Cipher.ENCRYPT_MODE);
+			}
+
+			stream.write(content);
+			stream.flush();
+			stream.close();
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to create", e);
+		}
+		return true;
+	}
 
 	@Override
 	public boolean createFile(String directoryName, String fileName, Bitmap bitmap) {
